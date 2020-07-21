@@ -11,12 +11,13 @@
         android:layout_height="match_parent"
         android:background="#FF4543"
         android:orientation="horizontal">
+
         <ImageView
-            android:contentDescription="delete"
             android:id="@+id/todoB"
-            android:layout_width="30dp"
+            android:layout_width="22dp"
             android:layout_height="30dp"
             android:layout_margin="5dp"
+            android:contentDescription="delete"
             android:onClick="delete"
             android:src="@drawable/delete" />
         <!--What you want to show-->

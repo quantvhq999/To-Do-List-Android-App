@@ -15,11 +15,13 @@ lintOptions {
          abortOnError false
     }
     buildTypes {
-    applicationVariants.all { variant ->                              
-        variant.outputs.each { output ->                              
-            output.outputFile = file("$project.buildDir/apk/todolist.apk")
-        }                                                             
-    }
+        applicationVariants.all { variant ->
+            variant.outputs.all {
+                def flavor = variant.name
+                def versionName = variant.versionName
+                outputFileName = "prefix_${flavor}_${versionName}.apk"
+            }
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -32,13 +34,37 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.0.1'
-    compile 'com.android.support:design:25.0.1'
+ //   compile 'com.android.support:appcompat-v7:25.0.1'
+   // compile 'com.android.support:design:25.0.1'
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:recyclerview-v7:21.0.0'
+   // compile 'com.android.support:recyclerview-v7:21.0.0'
     compile 'com.android.support:support-v4:25.1.0'
     compile "com.daimajia.swipelayout:library:1.2.0@aar"
     compile 'petrov.kristiyan.colorpicker:colorpicker-library:1.1.2'
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
-}
 
+    //Alarm
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.getbase:floatingactionbutton:1.9.0'
+    compile 'com.wdullaer:materialdatetimepicker:1.2.1'
+    compile 'com.bignerdranch.android:recyclerview-multiselect:+'
+    compile 'com.wrapp.floatlabelededittext:library:0.0.6'
+    compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+   // testCompile 'junit:junit:4.12'
+
+}
+allprojects {
+    repositories {
+        jcenter()
+        maven {
+            url "https://maven.google.com"
+        }
+    }
+}
