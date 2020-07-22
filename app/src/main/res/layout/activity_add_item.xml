@@ -26,7 +26,7 @@
             android:textColor="#FFFFFF"
             android:textSize="20dp"
             android:layout_alignParentEnd="true"
-            android:text="Save"
+            android:text="Lưu"
             android:onClick="save"/>
     </RelativeLayout>
     <EditText
@@ -37,7 +37,7 @@
         android:background="@color/colorPrimary"
         android:inputType="textPersonName"
         android:textColor="#FFFFFF"
-        android:hint="Title"
+        android:hint="Tiêu đề"
         android:textColorHint="#DFDFDF"
         android:ems="10"
         android:textStyle="bold"
@@ -48,31 +48,31 @@
         android:padding="10dp"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-<!--
-       <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/clock"/>
+        <!--
+               <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/clock"/>
 
-            <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="viewEnd"
-            android:onClick="setDate"
-            android:textSize="20dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:id="@+id/dateee" />
-        <TextView
-            android:textSize="20dp"
-            android:layout_width="match_parent"
-            android:textAlignment="viewEnd"
-            android:layout_height="wrap_content"
-            android:onClick="setTime"
-            android:layout_weight="2"
-            android:ems="10"
-            android:id="@+id/timeee" />
-    -->
+                    <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="viewEnd"
+                    android:onClick="setDate"
+                    android:textSize="20dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:id="@+id/dateee" />
+                <TextView
+                    android:textSize="20dp"
+                    android:layout_width="match_parent"
+                    android:textAlignment="viewEnd"
+                    android:layout_height="wrap_content"
+                    android:onClick="setTime"
+                    android:layout_weight="2"
+                    android:ems="10"
+                    android:id="@+id/timeee" />
+            -->
 
         <!--Alarm-->
 
@@ -334,7 +334,7 @@
             android:gravity="center_horizontal"
             android:layout_height="wrap_content" />
         <!---
-        <TextVieww
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Categorie"
@@ -355,7 +355,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
-        android:hint="To do..."
+        android:hint="Việc cần làm..."
         android:textColorHint="@color/white"
         android:ems="10"
         android:textColor="@color/white"

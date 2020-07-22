@@ -104,7 +104,7 @@ public class MainActivity extends ActionBarActivity {
                 affListCorresponding();
             }
         });
-       getData();
+        getData();
         getCatData();
         if (cat.size() == 0)
             cat.add(new Categorie("none", Color.parseColor("#262D3B")));
@@ -322,7 +322,7 @@ public class MainActivity extends ActionBarActivity {
         Date d;
 
         d = new Date();
-        nb_tasks.setText(String.valueOf(items.size()) + " Tasks");
+        nb_tasks.setText(String.valueOf(items.size()) + " Công việc");
         while (i < items.size()) {
             if (!(items.get(i).getRealDate().after(d))) {
                 items.get(i).setPassed(true);
@@ -441,9 +441,9 @@ public class MainActivity extends ActionBarActivity {
         ItemAdapter adapter = new ItemAdapter(MainActivity.this, tmp);
         mListView.setAdapter(adapter);
         if (tmp.size() > 1)
-            ((TextView) findViewById(R.id.nb_tasks)).setText(String.valueOf(tmp.size()) + " Tasks");
+            ((TextView) findViewById(R.id.nb_tasks)).setText(String.valueOf(tmp.size()) + " Công việc");
         else
-            ((TextView) findViewById(R.id.nb_tasks)).setText(String.valueOf(tmp.size()) + " Task");
+            ((TextView) findViewById(R.id.nb_tasks)).setText(String.valueOf(tmp.size()) + " Công việc");
         adapter.notifyDataSetChanged();
     }
 

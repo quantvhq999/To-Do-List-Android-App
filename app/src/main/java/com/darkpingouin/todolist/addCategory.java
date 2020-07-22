@@ -33,7 +33,7 @@ public class addCategory extends AppCompatActivity {
         mListView = (ListView) findViewById(R.id.listView);
         cat2 = MainActivity.getCat();
         CatAdapter adapter = new CatAdapter(addCategory.this, cat2);
-        ((TextView) findViewById(R.id.nb_cat)).setText("Categories (" + String.valueOf(cat2.size()) + ")");
+        ((TextView) findViewById(R.id.nb_cat)).setText("(" + String.valueOf(cat2.size()) + ")"+ " Danh mục");
         mListView.setAdapter(adapter);
     }
 
@@ -74,10 +74,10 @@ public class addCategory extends AppCompatActivity {
             MainActivity.cat.remove(position);
             cat2.remove(position);
             CatAdapter a = (CatAdapter) mListView.getAdapter();
-            ((TextView) findViewById(R.id.nb_cat)).setText("Categories (" + String.valueOf(cat2.size()) + ")");
+            ((TextView) findViewById(R.id.nb_cat)).setText("(" + String.valueOf(cat2.size()) + ")"+ " Danh mục");
             a.notifyDataSetChanged();
         } else
-            Toast.makeText(getApplicationContext(), "Error can't delete \"none\" category", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Không thể xoá danh mục \"none\"", Toast.LENGTH_SHORT).show();
         SwipeLayout s = (SwipeLayout) mListView.getChildAt(position);
         s.close(true);
     }
@@ -121,12 +121,12 @@ public class addCategory extends AppCompatActivity {
                     MainActivity.cat.add(new Categorie(name, finalColor));
                     cat2.add(new Categorie(name, finalColor));
                     CatAdapter a = (CatAdapter) mListView.getAdapter();
-                    ((TextView) findViewById(R.id.nb_cat)).setText("Categories (" + String.valueOf(cat2.size()) + ")");
+                    ((TextView) findViewById(R.id.nb_cat)).setText("(" + String.valueOf(cat2.size()) + ")"+ " Danh mục");
                     a.notifyDataSetChanged();
                     dialog.dismiss();
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "Error: Category " + name + " already exists", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Lỗi: Danh mục '"+ name +"' đã tồn tại", Toast.LENGTH_SHORT).show();
                 }
             }
         });

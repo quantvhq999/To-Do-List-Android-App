@@ -199,7 +199,7 @@ public class AddItem extends AppCompatActivity {
         String title = ((TextView) findViewById(R.id.title)).getText().toString();
         String txt = ((TextView) findViewById(R.id.txt)).getText().toString().replace('<', ' ');
         if (title.equals("") || txt.equals(""))
-            Toast.makeText(getApplicationContext(), "Error title and description cannot be empty !", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Tiêu đề và mô tả không thể trống !", Toast.LENGTH_SHORT).show();
         else {
             String d = ((TextView) findViewById(R.id.date)).getText().toString() + " " + ((TextView) findViewById(R.id.time)).getText().toString();
             SimpleDateFormat newDateFormat = new SimpleDateFormat("EE d MMM yyyy k:m");
@@ -215,7 +215,7 @@ public class AddItem extends AppCompatActivity {
                 setResult(Activity.RESULT_OK, returnIntent);
                 finish();
             } else
-                Toast.makeText(getApplicationContext(), "Error you can't enter a date that is already passed !", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Bạn không thể chọn ngày đã qua !", Toast.LENGTH_SHORT).show();
         }
     }
 }

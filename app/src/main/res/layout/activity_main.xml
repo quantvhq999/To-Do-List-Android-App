@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="nb Tasks"
+                android:text="nb Công việc"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="18dp"
@@ -83,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Settings"
+                android:text="Cài đặt"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="18dp"
@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:clickable="false"
                 android:padding="10dp"
-                android:text="Status"
+                android:text="Trạng thái"
                 android:textSize="20sp" />
 
         </LinearLayout>
@@ -128,13 +128,13 @@
             android:id="@+id/switch_done"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Done" />
+            android:text="Hoàn thành" />
 
         <CheckBox
             android:id="@+id/switch_todo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="To do" />
+            android:text="Việc cần làm" />
 
 
 
@@ -155,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:clickable="false"
                 android:padding="10dp"
-                android:text="Date"
+                android:text="Ngày"
                 android:textSize="20sp" />
 
         </LinearLayout>
@@ -165,13 +165,13 @@
             android:id="@+id/switch_passed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Passed" />
+            android:text="Hoàn thành" />
 
         <CheckBox
             android:id="@+id/switch_ondate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Up to Date" />
+            android:text="Chưa đến ngày" />
         <LinearLayout
             android:background="#EFEFEF"
             android:layout_width="match_parent"
@@ -189,7 +189,7 @@
                 android:layout_height="wrap_content"
                 android:onClick="addCategorie"
                 android:padding="10dp"
-                android:text="Categories"
+                android:text="Danh mục"
                 android:textSize="20sp" />
 
             <ImageView

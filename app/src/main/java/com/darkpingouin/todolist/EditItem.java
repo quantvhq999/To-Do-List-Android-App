@@ -99,7 +99,7 @@ public class EditItem extends AppCompatActivity {
      * @param view
      */
     public void setDate(View view) {
-            showDialog(999);
+        showDialog(999);
     }
 
     /**
@@ -107,7 +107,7 @@ public class EditItem extends AppCompatActivity {
      * @param view
      */
     public void setTime(View view) {
-            showDialog(998);
+        showDialog(998);
     }
 
     @Override
@@ -239,7 +239,7 @@ public class EditItem extends AppCompatActivity {
             finish();
         }
         else
-            Toast.makeText(getApplicationContext(), "Error you can't enter a date that is already passed !", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Bạn không thể chọn ngày đã qua !", Toast.LENGTH_SHORT).show();
     }
 
     /**

@@ -50,7 +50,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
             if (Item.getCategorie().equals(cat.get(i).getName())) {
                 found = true;
                 int color = cat.get(i).getColor();
-                String lighter = "#15" + Integer.toHexString(color).substring(2);
+                String lighter = "#36" + Integer.toHexString(color).substring(2);
                 viewHolder.categorie.setBackgroundColor(cat.get(i).getColor());
                 if (Item.getStatus() == com.darkpingouin.todolist.Item.Status.DONE)
                     viewHolder.back.setBackgroundColor(Color.parseColor(lighter));
@@ -61,7 +61,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         {
             Item.setCategorie("none");
             int color = cat.get(0).getColor();
-            String lighter = "#15" + Integer.toHexString(color).substring(2);
+            String lighter = "#36" + Integer.toHexString(color).substring(2);
             if (Item.getStatus() == com.darkpingouin.todolist.Item.Status.DONE)
                 viewHolder.back.setBackgroundColor(Color.parseColor(lighter));
             viewHolder.categorie.setBackgroundColor(cat.get(0).getColor());

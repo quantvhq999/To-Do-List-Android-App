@@ -16,15 +16,15 @@
 
     <string name="add_reminder">Reminder</string>
     <string name="details">Details</string>
-    <string name="date">Date</string>
-    <string name="time">Time</string>
-    <string name="repeat">Repeat</string>
+    <string name="date">Ngày</string>
+    <string name="time">Thời gian</string>
+    <string name="repeat">Lặp lại</string>
     <string name="repeat_off">Off</string>
-    <string name="repeat_no">Repetition Interval </string>
-    <string name="repeat_type">Type of Repetitions</string>
+    <string name="repeat_no">Khoảng lặp lại</string>
+    <string name="repeat_type">Loại thời gian</string>
 
-    <string name="action_discard_reminder">Discard Reminder</string>
-    <string name="action_save_reminder">Save Reminder</string>
+    <string name="action_discard_reminder">Hủy nhắc nhở</string>
+    <string name="action_save_reminder">Lưu nhắc nhở</string>
 
     <string name="editor_activity_title_new_reminder">Add Reminder Details</string>
     <string name="editor_activity_title_edit_reminder">Edit Reminder</string>

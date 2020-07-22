@@ -14,7 +14,9 @@
             android:layout_width="42dp"
             android:layout_height="42dp"
             android:background="#262D3B"
-            android:padding="10dp"></View>
+            android:padding="10dp">
+
+        </View>
 
         <EditText
             android:id="@+id/catName"
@@ -25,7 +27,7 @@
             android:layout_alignParentTop="true"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name" />
+            android:text="Tên" />
     </LinearLayout>
 
     <RelativeLayout
@@ -46,7 +48,7 @@
                 android:padding="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="OK" />
+                android:text="Lưu" />
 
             <TextView
                 android:textStyle="bold"
@@ -55,7 +57,7 @@
                 android:id="@+id/cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="CANCEL" />
+                android:text="Thoát" />
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>
