@@ -1,17 +1,22 @@
 package com.darkpingouin.todolist;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -25,10 +30,15 @@ import java.util.List;
 
 import static com.darkpingouin.todolist.R.id.date;
 
-/**
- * Lorsqu'on ajoute une task
- */
+
 public class AddItem extends AppCompatActivity {
+    private TextView mDateText, mTimeText, mRepeatText, mRepeatNoText, mRepeatTypeText;
+    private String mRepeat;
+    private String mRepeatNo;
+    private String mRepeatType;
+    private Switch mRepeatSwitch;
+    private String mActive;
+
     private Calendar calendar;
     public Spinner spinner2;
     private TextView dateView, timeView;
@@ -38,6 +48,16 @@ public class AddItem extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
+        mRepeatText = (TextView) findViewById(R.id.set_repeat);
+        mRepeatNoText = (TextView) findViewById(R.id.set_repeat_no);
+        mRepeatTypeText = (TextView) findViewById(R.id.set_repeat_type);
+        mRepeatSwitch = (Switch) findViewById(R.id.repeat_switch);
+        // Initialize default values
+        mActive = "true";
+        mRepeat = "true";
+        mRepeatNo = Integer.toString(1);
+        mRepeatType = "Giờ";
+
         dateView = (TextView) findViewById(date);
         timeView = (TextView) findViewById(R.id.time);
         calendar = Calendar.getInstance();
@@ -57,9 +77,7 @@ public class AddItem extends AppCompatActivity {
         addItemsOnSpinner2();
     }
 
-    /**
-     * Ajoute les catégories dans le spinner
-     */
+
     public void addItemsOnSpinner2() {
         List<String> list = new ArrayList<>();
         int i = 0;
@@ -87,18 +105,12 @@ public class AddItem extends AppCompatActivity {
     }
 
     @SuppressWarnings("deprecation")
-    /**
-     * Set la date
-     * @param view View
-     */
+
     public void setDate(View view) {
         showDialog(999);
     }
 
-    /**
-     * Set l'heure
-     * @param view View
-     */
+
     public void setTime(View view) {
         showDialog(998);
     }
@@ -117,9 +129,7 @@ public class AddItem extends AppCompatActivity {
         return null;
     }
 
-    /**
-     * Ouvre un picker de date
-     */
+
     private DatePickerDialog.OnDateSetListener myDateListener = new
             DatePickerDialog.OnDateSetListener() {
                 @Override
@@ -136,9 +146,7 @@ public class AddItem extends AppCompatActivity {
                     }
                 }
             };
-    /**
-     * Ouvre un picker d'heure
-     */
+
     private TimePickerDialog.OnTimeSetListener myTimeListener = new
             TimePickerDialog.OnTimeSetListener() {
                 @Override
@@ -189,11 +197,7 @@ public class AddItem extends AppCompatActivity {
         finish();
     }
 
-    /**
-     * Sauvegarde l'item et envoies les données à la Mainactivity
-     * @param view view
-     * @throws ParseException
-     */
+
     public void save(View view) throws ParseException {
         Date current = new Date();
         String title = ((TextView) findViewById(R.id.title)).getText().toString();
@@ -217,5 +221,75 @@ public class AddItem extends AppCompatActivity {
             } else
                 Toast.makeText(getApplicationContext(), "Bạn không thể chọn ngày đã qua !", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    //Onclick Repeat
+    public void setRepeatNo(View v){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Nhập số lần");
+
+        // Create EditText box to input repeat number
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        alert.setView(input);
+        alert.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                        if (input.getText().toString().length() == 0) {
+                            mRepeatNo = Integer.toString(1);
+                            mRepeatNoText.setText(mRepeatNo);
+                            mRepeatText.setText(mRepeatNo + " " + mRepeatType + " một lần");
+                        }
+                        else {
+                            mRepeatNo = input.getText().toString().trim();
+                            mRepeatNoText.setText(mRepeatNo);
+                            mRepeatText.setText(mRepeatNo + " " + mRepeatType + " một lần");
+                        }
+                    }
+                });
+        alert.setNegativeButton("Thoát", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // do nothing
+            }
+        });
+        alert.show();
+    }
+
+    // On clicking the repeat switch
+    public void onSwitchRepeat(View view) {
+        boolean on = ((Switch) view).isChecked();
+        if (on) {
+            mRepeat = "true";
+            mRepeatText.setText(mRepeatNo + " " + mRepeatType + " một lần");
+        } else {
+            mRepeat = "false";
+            mRepeatText.setText(R.string.repeat_off);
+        }
+    }
+
+    // On clicking repeat type button
+    public void selectRepeatType(View v){
+        final String[] items = new String[5];
+
+        items[0] = "Phút";
+        items[1] = "Giờ";
+        items[2] = "Ngày";
+        items[3] = "Tuần";
+        items[4] = "Tháng";
+        // Create List Dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Chọn loại thời gian");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int item) {
+
+                mRepeatType = items[item];
+                mRepeatTypeText.setText(mRepeatType);
+                mRepeatText.setText(mRepeatNo + " " + mRepeatType + " một lần");
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

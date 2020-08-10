@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipe"
     android:layout_width="match_parent"
-    android:layout_height="80dp">
+    android:layout_height="80dp"
+    tools:targetApi="lollipop">
     <!-- Bottom View Start-->
     <LinearLayout
         android:id="@+id/bottom_wrapper"
@@ -43,11 +44,15 @@
             android:layout_width="match_parent"
             android:id="@+id/categorie"
             android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
             android:layout_weight="22"
+            android:elevation="5dp"
             android:background="#456345" />
 
         <RelativeLayout
             android:id="@+id/showItem"
+            android:layout_marginBottom="5dp"
+            android:elevation="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"

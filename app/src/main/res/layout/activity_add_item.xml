@@ -4,7 +4,7 @@
     android:id="@+id/activity_add_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1a1a1a"
+    android:background="#2f3030"
     android:orientation="vertical"
     tools:context="com.darkpingouin.todolist.AddItem">
 
@@ -38,11 +38,13 @@
         android:inputType="textPersonName"
         android:textColor="#FFFFFF"
         android:hint="Tiêu đề"
-        android:textColorHint="#DFDFDF"
+        android:textColorHint="@color/mdtp_white"
         android:ems="10"
         android:textStyle="bold"
         android:id="@+id/title" />
-
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:padding="10dp"
@@ -215,9 +217,7 @@
                 android:onClick="onSwitchRepeat"
                 android:checked="true"
                 android:textOn="On"
-                android:textOff="Off"
-                tools:ignore="OnClick" />
-            <!--Nho xoa ignore-->
+                android:textOff="Off" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -226,9 +226,8 @@
             android:clickable="true"
             android:onClick="setRepeatNo"
             android:background="?android:attr/selectableItemBackground"
-            android:layout_height="72dp"
-            tools:ignore="OnClick">
-            <!--Nho xoa ignore-->
+            android:layout_height="72dp">
+
             <ImageView
                 android:id="@+id/repeat_no_icon"
                 android:layout_width="wrap_content"
@@ -308,57 +307,57 @@
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>
+
         </RelativeLayout>
-
-    </LinearLayout>
-
-    <!--          Tag       -->
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:padding="10dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/label"/>
-        <Spinner
-            android:id="@+id/spinner2"
+        <!--          Tag       -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:gravity="center_horizontal"
-            android:layout_height="wrap_content" />
-        <!---
-        <TextView
-            android:layout_width="match_parent"
+            android:padding="10dp"
             android:layout_height="wrap_content"
-            android:text="Categorie"
-            android:gravity="center_horizontal"
-            android:onClick="setColor"
-            android:textSize="20dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:id="@+id/categorie" />
-            -->
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="9dp"
+                android:src="@drawable/label"/>
+            <Spinner
+                android:id="@+id/spinner2"
+                android:layout_width="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_height="wrap_content" />
+
+            <!---
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Categorie"
+                android:gravity="center_horizontal"
+                android:onClick="setColor"
+                android:textSize="20dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:id="@+id/categorie" />
+                -->
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_margin="10dp"
+            android:background="@drawable/boder_radius"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:inputType="textMultiLine"
+                android:hint="  Việc cần làm..."
+                android:textColorHint="@color/mdtp_light_gray"
+                android:ems="10"
+                android:textColor="@color/black_de"
+                android:id="@+id/txt" />
+
+        </RelativeLayout>
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:hint="Việc cần làm..."
-        android:textColorHint="@color/white"
-        android:ems="10"
-        android:textColor="@color/white"
-        android:id="@+id/txt" />
-
+</ScrollView>
 </LinearLayout>

@@ -9,10 +9,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-/**
- * Le custom adapteur pour la listview catégorie
- */
-
 public class CatAdapter extends ArrayAdapter<Categorie> {
     public CatAdapter(Context context, List<Categorie> Categorie) {
         super(context, 0, Categorie);

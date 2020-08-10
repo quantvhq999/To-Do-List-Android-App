@@ -1,11 +1,15 @@
 package com.darkpingouin.todolist;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -13,14 +17,23 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
@@ -31,9 +44,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/***
- * Classe principale du projet
- */
+
 public class MainActivity extends ActionBarActivity {
 
     int id;
@@ -42,10 +53,14 @@ public class MainActivity extends ActionBarActivity {
     public static List<Item> tmp = new ArrayList<>();
     public static ArrayList<Categorie> cat = new ArrayList<>();
 
-
     TextView nb_tasks;
     public static boolean aff_done, aff_todo, aff_passed, aff_ondate;
 
+    private DrawerLayout layoutMain;
+    private RelativeLayout layoutButtons;
+    private RelativeLayout layoutContent;
+    FloatingActionButton fab;
+    private boolean isOpen = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +73,20 @@ public class MainActivity extends ActionBarActivity {
         aff_passed = true;
         aff_ondate = true;
         id = 0;
+
+        //New intent
+        layoutMain = (DrawerLayout) findViewById(R.id.drawer_layout);
+        layoutButtons = (RelativeLayout) findViewById(R.id.layoutButtons);
+        layoutContent = (RelativeLayout) findViewById(R.id.layoutContent);
+        fab = (FloatingActionButton) findViewById(R.id.alarmFAB);
+        fab.setBackgroundTintList(ColorStateList.valueOf(ResourcesCompat.getColor(getResources(), R.color.color3, null)));
+        fab.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View view) {
+                viewAlarm();
+            }
+        });
 
         CheckBox checkToDo = (CheckBox) findViewById(R.id.switch_todo);
         checkToDo.setChecked(true);
@@ -135,9 +164,7 @@ public class MainActivity extends ActionBarActivity {
         checkDate();
     }
 
-    /**
-     * Recup les données des tasks dans la db
-     */
+
     public void getData() {
         List<Item> list = new ArrayList<>();
         Item tmp;
@@ -172,10 +199,75 @@ public class MainActivity extends ActionBarActivity {
         }
         items = list;
     }
+    //fab Onclick
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void viewAlarm() {
 
-    /**
-     * Recup les données des catégories dans la db
-     */
+        if (!isOpen) {
+
+            int x = fab.getRight();
+            int y = fab.getBottom();
+
+            int startRadius = 0;
+            int endRadius = (int) Math.hypot(layoutMain.getWidth(), layoutMain.getHeight());
+
+            fab.setBackgroundTintList(ColorStateList.valueOf(ResourcesCompat.getColor(getResources(), R.color.color3, null)));
+            fab.setImageResource(R.drawable.cancel);
+
+            Animator anim = ViewAnimationUtils.createCircularReveal(layoutButtons, x, y, startRadius, endRadius);
+
+            layoutButtons.setVisibility(View.VISIBLE);
+            ListView listView = (ListView) findViewById(R.id.listView);
+            listView.setVisibility(View.GONE);
+            ImageView add = (ImageView) findViewById(R.id.add_btn);
+            add.setVisibility(View.GONE);
+            anim.start();
+
+            isOpen = true;
+
+        } else {
+
+            int x = fab.getRight();
+            int y = fab.getBottom();
+
+            int startRadius = Math.max(layoutContent.getWidth(), layoutContent.getHeight());
+            int endRadius = 0;
+
+
+            fab.setImageResource(R.drawable.timer);
+
+            Animator anim = ViewAnimationUtils.createCircularReveal(layoutButtons, x, y, startRadius, endRadius);
+            anim.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animator) {
+                    layoutButtons.setVisibility(View.GONE);
+                    ListView listView = (ListView) findViewById(R.id.listView);
+                    ImageView add = (ImageView) findViewById(R.id.add_btn);
+                    add.setVisibility(View.VISIBLE);
+                    listView.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animator) {
+
+                }
+            });
+            anim.start();
+
+            isOpen = false;
+        }
+    }
+
     public void getCatData() {
         ArrayList<Categorie> list = new ArrayList<>();
         Categorie tmp;
@@ -195,11 +287,7 @@ public class MainActivity extends ActionBarActivity {
         cat = list;
     }
 
-    /**
-     * Returns value to insert in db
-     *
-     * @return
-     */
+
     public String addToDataBase(int i) {
         Item tmp = items.get(i);
         String query = "'";
@@ -211,9 +299,7 @@ public class MainActivity extends ActionBarActivity {
         return query;
     }
 
-    /**
-     * Sauvegarde les tasks dans la db
-     */
+
     public void saveData() {
         String query;
         SQLiteDatabase mydatabase = openOrCreateDatabase("todolist", MODE_PRIVATE, null);
@@ -226,9 +312,7 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    /**
-     * Sauvegarde les catégories dans la db
-     */
+
     public void saveCategory() {
         String query;
         SQLiteDatabase mydatabase = openOrCreateDatabase("todolist", MODE_PRIVATE, null);
@@ -240,21 +324,13 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    /**
-     * Ouvre le menu settings pour l'affichage et les catégories
-     *
-     * @param V
-     */
+
     public void settings(View V) {
         DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerLayout.openDrawer(Gravity.LEFT);
     }
 
-    /**
-     * Ouvre l'activité pour ajouter un Item
-     *
-     * @param v
-     */
+
     public void add(View v) {
         Intent intentMain = new Intent(MainActivity.this, AddItem.class);
         startActivityForResult(intentMain, 1);
@@ -314,9 +390,7 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    /**
-     * Affiche en rouge la date de la l'item si la date est déjà passée
-     */
+
     public void checkDate() {
         int i = 0;
         Date d;
@@ -335,12 +409,7 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    /**
-     * Ajoute un item à la liste des items
-     *
-     * @param item
-     * @throws ParseException
-     */
+
     public void addToList(Item item) throws ParseException {
         items.add(item);
         checkDate();
@@ -360,17 +429,7 @@ public class MainActivity extends ActionBarActivity {
         affListCorresponding();
     }
 
-    /**
-     * Modifie un item déja existant
-     *
-     * @param position
-     * @param title
-     * @param txt
-     * @param d
-     * @param delete
-     * @param cate
-     * @throws ParseException
-     */
+
     public void modifyItem(int position, String title, String txt, Date d, String delete, String cate) throws ParseException {
         Item item = items.get(position);
         if (delete.equals("false")) {
@@ -398,12 +457,6 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
-    /**
-     * Permet de savoir si l'item doit être affiché en fonction de sa catégorie
-     *
-     * @param item
-     * @return
-     */
     public boolean showCatForItem(Item item) {
         int i = 0;
         while (i < cat.size()) {
@@ -415,9 +468,7 @@ public class MainActivity extends ActionBarActivity {
         return false;
     }
 
-    /**
-     * Permet d'afficher les tasks en fonctions des restrictions de l'utilisateur (statut, date, catégories etc...)
-     */
+
     public void affListCorresponding() {
         int nb_items = items.size();
         boolean t, p;
@@ -447,11 +498,7 @@ public class MainActivity extends ActionBarActivity {
         adapter.notifyDataSetChanged();
     }
 
-    /**
-     * Passe le status d'une task en to do
-     *
-     * @param v
-     */
+
     public void todoClick(View v) {
         final int position = mListView.getPositionForView((View) v.getParent());
         SwipeLayout s = (SwipeLayout) mListView.getChildAt(position);
@@ -462,11 +509,7 @@ public class MainActivity extends ActionBarActivity {
         s.close(true);
     }
 
-    /**
-     * Passe une catégorie en visible ou invisible
-     *
-     * @param v
-     */
+
     public void catCheck(View v) {
         final int position = checkListView.getPositionForView((View) v.getParent());
         CheckBox checkBox = (CheckBox) v;
@@ -477,11 +520,7 @@ public class MainActivity extends ActionBarActivity {
         affListCorresponding();
     }
 
-    /**
-     * Change le status de la task à Done
-     *
-     * @param v
-     */
+
     public void doneClick(View v) {
         final int position = mListView.getPositionForView((View) v.getParent());
         SwipeLayout s = (SwipeLayout) mListView.getChildAt(position);
@@ -494,12 +533,7 @@ public class MainActivity extends ActionBarActivity {
         saveData();
     }
 
-    /**
-     * Permet de preparer une notification
-     *
-     * @param notification
-     * @param delay
-     */
+
     private void scheduleNotification(Notification notification, int delay) {
 
         Intent notificationIntent = new Intent(this, NotificationPublisher.class);
@@ -512,12 +546,7 @@ public class MainActivity extends ActionBarActivity {
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
     }
 
-    /**
-     * Permet à l'utilisateur de recevoir des notifications concernant ses taches
-     *
-     * @param content le contenu de la notification
-     * @return un builder
-     */
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private Notification getNotification(String Title, String content, int color) {
         Notification.Builder builder = new Notification.Builder(this);
@@ -531,11 +560,7 @@ public class MainActivity extends ActionBarActivity {
         return builder.build();
     }
 
-    /**
-     * Renvoies l'arraylist contenant les catégries
-     *
-     * @return l'array list contenant la ou les catégories
-     */
+
     public static ArrayList<Categorie> getCatA() {
         ArrayList<Categorie> tmp = new ArrayList<Categorie>();
         int i = 0;
@@ -544,11 +569,7 @@ public class MainActivity extends ActionBarActivity {
         return tmp;
     }
 
-    /**
-     * Ferme le drawer menu
-     *
-     * @param v
-     */
+
     public void closeMenu(View v) {
         DrawerLayout d = ((DrawerLayout) findViewById(R.id.drawer_layout));
         d.closeDrawers();
@@ -558,9 +579,6 @@ public class MainActivity extends ActionBarActivity {
         return (getCatA());
     }
 
-    /**
-     * Verifie si une catégorie à été supprimé et update les tasks si c'est le cas.
-     */
 
     public void checkCategories() {
         int i = 0;
@@ -580,15 +598,12 @@ public class MainActivity extends ActionBarActivity {
         affListCorresponding();
     }
 
-    /**
-     * Permet d'ajouter une catégorie via un menu
-     *
-     * @param v
-     */
+
     public void addCategorie(View v) {
         Intent intentMain = new Intent(MainActivity.this, addCategory.class);
         startActivityForResult(intentMain, 2);
         checkCategories();
     }
+
 }
 

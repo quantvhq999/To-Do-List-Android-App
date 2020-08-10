@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="50dp">
     <!-- Bottom View Start-->
+
     <LinearLayout
         android:id="@+id/bottom_wrapper"
         android:layout_width="60dp"
@@ -16,7 +17,8 @@
             android:id="@+id/todoB"
             android:layout_width="22dp"
             android:layout_height="30dp"
-            android:layout_margin="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="17dp"
             android:contentDescription="delete"
             android:onClick="delete"
             android:src="@drawable/delete" />
@@ -45,5 +47,6 @@
             android:id="@+id/title"
             android:text="Tên"/>
     </LinearLayout>
+
     <!-- Surface View End -->
 </com.daimajia.swipe.SwipeLayout>
